@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สมัครงานกับเรา</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    /* พื้นหลัง */
+    body {
+      background: url('https://s.isanook.com/me/0/ud/15/76145/teamwork.jpg?ip/crop/w1200h700/q80/webp') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* กล่อง Card แบบกระจกเบลอ */
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      margin-top: 30px;
+      border: none;
+      box-shadow: 0px 0px 30px rgba(0,0,0,0.25);
+      border-radius: 20px;
+      animation: slideDown 1s ease;
+    }
+
+    /* Header */
+    .card-header {
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: white;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      animation: popIn 1s ease;
+    }
+
+    /* ปุ่ม */
+    .btn-primary {
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.6);
+    }
+
+    /* ฟอร์ม Input */
+    .form-control, .form-control-file {
+      border-radius: 12px;
+      border: 2px solid #dee2e6;
+      transition: 0.3s;
+    }
+    .form-control:focus {
+      border-color: #00c6ff;
+      box-shadow: 0 0 8px #00c6ff80;
+    }
+
+    /* ปุ่มเลือกไฟล์ */
+    .custom-file-upload {
+      display: inline-block;
+      padding: 10px 20px;
+      cursor: pointer;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: white;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+      text-align: center;
+    }
+    .custom-file-upload:hover {
+      background: linear-gradient(90deg, #0056b3, #0096c7);
+      box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.5);
+    }
+    #resume {
+      display: none; /* ซ่อน input จริง */
+    }
+    .file-name {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+
+    /* ไอคอนในช่อง input */
+    .input-group-text {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 12px 0 0 12px;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="card">
+        <div class="card-header">
+          สมัครงานกับเรา
+        </div>
+        <div class="card-body">
+
+          <form action="submit.php" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+              <label for="name">ชื่อ-นามสกุล:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                </div>
+                <input type="text" id="name" name="name" class="form-control" placeholder="กรอกชื่อ-นามสกุล" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">อีเมล:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                </div>
+                <input type="email" id="email" name="email" class="form-control" placeholder="กรอกอีเมล" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="position">ตำแหน่งที่สมัคร:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="bi bi-briefcase-fill"></i></span>
+                </div>
+                <input type="text" id="position" name="position" class="form-control" placeholder="กรอกตำแหน่งที่ต้องการสมัคร" required>
+              </div>
+            </div>
+
+            <div class="form-group text-center">
+              <label for="resume" class="custom-file-upload">
+                <i class="bi bi-cloud-upload-fill"></i> เลือกไฟล์ประวัติ
+              </label>
+              <input type="file" id="resume" name="resume" accept=".pdf, .docx" required onchange="showFileName(this)">
+              <div id="file-name" class="file-name">ยังไม่ได้เลือกไฟล์</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">ส่งใบสมัคร</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function showFileName(input) {
+  const fileName = input.files[0]?.name || "ยังไม่ได้เลือกไฟล์";
+  document.getElementById('file-name').innerText = fileName;
+}
+</script>
+
+</body>
+</html>

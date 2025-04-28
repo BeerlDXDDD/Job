@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"  # กำหนดให้เว็บ PHP ทำงานที่ http://localhost:8080
+    volumes:
+      - .:/var/www/html
+    networks:
+      - webnet
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # รหัสผ่าน root ของ MySQL
+      MYSQL_DATABASE: job_application  # ชื่อฐานข้อมูล
+    volumes:
+      - db_data:/var/lib/mysql  # เพื่อให้ข้อมูลฐานข้อมูลไม่หายเมื่อคอนเทนเนอร์หยุด
+    networks:
+      - webnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin  # ใช้ image ของ phpMyAdmin
+    environment:
+      PMA_HOST: db  # ชื่อคอนเทนเนอร์ที่รัน MySQL (ในกรณีนี้คือ db)
+      MYSQL_ROOT_PASSWORD: rootpassword  # รหัสผ่าน root ของ MySQL
+    ports:
+      - "8000:80"  # เปิดพอร์ต 8000 เพื่อเข้าถึง phpMyAdmin ที่ http://localhost:8000
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
+
+volumes:
+  db_data: {}
